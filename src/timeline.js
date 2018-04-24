@@ -14,10 +14,12 @@ var combinedtraders;
         Timeline.prototype.GetDatum = function () {
             var year = this._timeline.getFullYear().toString();
             var month = (this._timeline.getUTCMonth() + 1).toString();
+            //if month is below 10 add 0 in front
             if ((this._timeline.getUTCMonth() + 1) < 10) {
                 month = "0" + (this._timeline.getUTCMonth() + 1).toString();
             }
             var day = this._timeline.getUTCDate().toString();
+            //if day is below 10 add 0 in front
             if (this._timeline.getUTCDate() < 10) {
                 day = "0" + this._timeline.getUTCDate().toString();
             }
@@ -28,8 +30,13 @@ var combinedtraders;
             if (!forward) {
                 step = -1;
             }
-            //check of de step mag
+            //step through time
             this._timeline.setHours(this._timeline.getHours() + step);
+            //if the time is outside of start and or end date, take a step back.
+            if (this._timeline < this._startDate || this._timeline > this._endDate) {
+                //reverse step
+                this._timeline.setHours(this._timeline.getHours() + step * -1);
+            }
         };
         return Timeline;
     }());
