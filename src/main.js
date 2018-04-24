@@ -45,13 +45,15 @@ var combinedtraders;
             //Once everything is loaded Phaser will goto create function
         };
         Main.prototype.create = function () {
+            this._timeline = new combinedtraders.Timeline(new Date(2017, 0, 1, 1), new Date(2017, 11, 31, 24));
+            this._temperatuur = new combinedtraders.Temperatuur(this.game.cache.getJSON("temperatuur"));
             //create map and setup points
             this._kaart = this.game.add.image(0, 0, "kaart");
             this._kaart.anchor.set(0.5, 0.5);
             this._kaart.position.set(this.game.width / 2, this.game.height / 2);
         };
         Main.prototype.update = function () {
-            //loop trough timed
+            //loop trough time
         };
         return Main;
     }(Phaser.State));

@@ -2,6 +2,22 @@
 /// <reference path="../node_modules/phaser-ce/typescript/p2.d.ts" />
 /// <reference path="../node_modules/phaser-ce/typescript/phaser.d.ts" />/
 module combinedtraders {
+
+    export interface VerbruikDataInterface {
+        Datum: string,
+        EAN: string,
+        Eenheid: string,
+        Uur: number,
+        Verbruik: number
+    }
+
+    export interface TemperatuurDataInterface {
+        Datum: string,
+        Temperatuur: number,
+        Uur: number,
+        stn: number
+    }
+
     //entry point
     export class Entry {
         constructor() {
@@ -15,6 +31,8 @@ module combinedtraders {
     export class Main extends Phaser.State {
         private _screen: screen;
         private _kaart: Phaser.Image;
+        private _timeline: Timeline;
+        private _temperatuur: Temperatuur;
 
         public init() {
             this._screen = new screen(this.game, ROTATION.BOTH, true);
@@ -35,6 +53,9 @@ module combinedtraders {
         }
 
         public create() {
+            this._timeline = new Timeline(new Date(2017, 0, 1, 1), new Date(2017, 11, 31, 24));
+            this._temperatuur = new Temperatuur(this.game.cache.getJSON("temperatuur"));
+
             //create map and setup points
             this._kaart = this.game.add.image(0, 0, "kaart");
             this._kaart.anchor.set(0.5, 0.5);
@@ -42,7 +63,7 @@ module combinedtraders {
         }
 
         public update() {
-            //loop trough timed
+            //loop trough time
         }
     }
 }
